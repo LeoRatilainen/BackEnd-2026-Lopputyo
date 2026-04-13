@@ -53,7 +53,6 @@ public class LopputyoApplication {
                 categoryRepository.save(arms);
                 categoryRepository.save(shoulders);
 
-                // Create sets for Multiple Categories
                 Set<Category> pushUpMuscles = new HashSet<>();
                 pushUpMuscles.add(chest);
                 pushUpMuscles.add(arms);
@@ -66,7 +65,6 @@ public class LopputyoApplication {
                 Set<Category> squatMuscles = new HashSet<>();
                 squatMuscles.add(legs);
 
-                // Save workouts with multiple categories
                 trainingRepository.save(new Training("Push Ups", 15, 3, 45, pushUpMuscles));
                 trainingRepository.save(new Training("Pull Ups", 5, 3, 60, pullUpMuscles));
                 trainingRepository.save(new Training("Squats", 30, 5, 30, squatMuscles));
