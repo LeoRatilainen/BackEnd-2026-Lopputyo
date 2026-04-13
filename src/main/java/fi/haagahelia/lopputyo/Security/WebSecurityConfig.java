@@ -29,7 +29,7 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/css/**", "/signup", "/saveuser").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
-                .requestMatchers("/deletetraining/**", "/confirmdelete/**").hasAuthority("ADMIN")
+                .requestMatchers("/deletetraining/**", "/confirmdelete/**", "/deletecategory/**", "/addcategory/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
