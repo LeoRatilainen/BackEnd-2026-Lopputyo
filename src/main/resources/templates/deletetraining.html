@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Confirm Delete</title>
+    <style>
+        body { font-family: sans-serif; background-color: #212529; color: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .modal { background-color: #2c3034; padding: 40px; border-radius: 8px; text-align: center; border: 1px solid #dc3545; }
+        h2 { color: #dc3545; }
+        .btn { padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold; margin: 10px; display: inline-block; }
+        .btn-danger { background-color: #dc3545; color: white; }
+        .btn-secondary { background-color: #6c757d; color: white; }
+    </style>
+</head>
+<body>
+    <div class="modal">
+        <h2>Confirm Deletion</h2>
+        <p>Are you sure you want to permanently delete this workout?</p>
+        <br/>
+        <a th:href="@{/deletetraining/{id}(id=${id})}" class="btn btn-danger">Yes, Delete It</a>
+        <a th:href="@{/traininglist}" class="btn btn-secondary">No, Keep It</a>
+    </div>
+</body>
+</html>

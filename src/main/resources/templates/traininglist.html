@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Training List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #212529; color: #f8f9fa; }
+        .navbar { display: flex; justify-content: flex-end; align-items: center; padding: 15px 30px; background-color: #2c3034; border-bottom: 1px solid #454d55; gap: 20px; }
+        .user-info { font-size: 14px; font-weight: bold; color: #adb5bd; }
+        .content-padding { padding: 40px; }
+        h1 { font-size: 2rem; color: #fff; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #2c3034; font-size: 15px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #454d55; }
+        th { background-color: #343a40; color: #0d6efd; }
+        .btn { display: inline-block; font-family: inherit; font-weight: bold; font-size: 14px; padding: 8px 16px; border-radius: 4px; text-decoration: none; color: white; border: none; cursor: pointer; }
+        .btn-add { background-color: #198754; margin-bottom: 20px; }
+        .btn-edit { background-color: #ffc107; color: #000; margin-right: 5px; }
+        .btn-delete { background-color: #dc3545; }
+        .btn-back { background-color: #6c757d; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <span class="user-info">Logged in as: <span sec:authentication="name">User</span></span>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout" class="btn btn-delete" />
+        </form>
+    </div>
+    <div class="content-padding">
+        <h1>Workouts</h1>
+        <a th:href="@{/addtraining}" class="btn btn-add">➕ Add New Training</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Workout</th><th>Reps</th><th>Sets</th><th>Rest (s)</th><th>Categories</th><th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="training : ${trainings}">
+                    <td th:text="${training.workout}"></td>
+                    <td th:text="${training.reps}"></td>
+                    <td th:text="${training.sets}"></td>
+                    <td th:text="${training.rest}"></td>
+                    <td>
+                        <span th:each="cat, iterStat : ${training.categories}" 
+                              th:text="${cat.muscle} + ${!iterStat.last ? ', ' : ''}">
+                        </span>
+                        <span th:if="${#lists.isEmpty(training.categories)}">None</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/edittraining/{id}(id=${training.id})}" class="btn btn-edit">Edit</a>
+                        <a th:href="@{/confirmdelete/{id}(id=${training.id})}" class="btn btn-delete" sec:authorize="hasAuthority('ADMIN')">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/index}" class="btn btn-back">⬅ Back to Home</a>
+    </div>
+</body>
+</html>
